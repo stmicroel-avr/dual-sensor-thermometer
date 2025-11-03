@@ -1,0 +1,33 @@
+# Microchip/Atmel Studio
+*.aps
+*.atsuo
+*.d
+*.dep
+*.map
+*.lss
+*.elf
+*.eep
+*.hex
+*.bin
+
+# Временные/билд-артефакты
+/Debug/
+/Release/
+/build/
+/obj/
+/ipch/
+
+# IDE
+*.sdf
+*.opensdf
+*.suo
+*.user
+*.VC.db
+*.VC.opendb
+.vs/
+.tfignore
+VSIX/
+
+# OS
+.DS_Store
+Thumbs.db
