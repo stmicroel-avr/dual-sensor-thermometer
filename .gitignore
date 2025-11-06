@@ -1,4 +1,4 @@
-# Microchip/Atmel Studio
+# === Microchip / Atmel Studio build artifacts ===
 *.aps
 *.atsuo
 *.d
@@ -9,15 +9,19 @@
 *.eep
 *.hex
 *.bin
+*.o
+*.srec      # иногда Atmel Studio делает .srec файлы
+*.cof       # бывает при отладке
 
-# Временные/билд-артефакты
-/Debug/
-/Release/
-/build/
-/obj/
-/ipch/
+# === Build / temporary folders ===
+Debug/
+Release/
+build/
+obj/
+ipch/
+intermediate/
 
-# IDE
+# === IDE & project metadata ===
 *.sdf
 *.opensdf
 *.suo
@@ -25,9 +29,22 @@
 *.VC.db
 *.VC.opendb
 .vs/
+.vscode/
+*.tlog
+*.cache
+*.db
+*.log
+*.tmp
+*.bak
+
+# === Atmel Studio / Visual Studio extensions ===
 .tfignore
 VSIX/
+*.vsixmanifest
+*.manifest
+*.targets
 
-# OS
+# === OS-level noise ===
 .DS_Store
 Thumbs.db
+desktop.ini
