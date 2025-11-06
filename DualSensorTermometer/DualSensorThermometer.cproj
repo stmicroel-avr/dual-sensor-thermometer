@@ -120,11 +120,45 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bsp\board_atmega328pb.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bsp\board.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_gpio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_timer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tasks\led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tasks\led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\task_queue.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\task_queue.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="hal" />
+    <Folder Include="bsp" />
+    <Folder Include="tasks" />
+    <Folder Include="utils" />
     <Folder Include="vsix\" />
   </ItemGroup>
   <ItemGroup>
