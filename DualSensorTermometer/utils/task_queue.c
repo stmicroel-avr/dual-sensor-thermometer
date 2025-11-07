@@ -1,10 +1,3 @@
-/*
- * timer_dispatcher.c
- *
- * Created: 05.11.2025 20:09:13
- *  Author: Stepan
- */ 
-
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>

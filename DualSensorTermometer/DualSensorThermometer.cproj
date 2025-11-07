@@ -126,6 +126,15 @@
     <Compile Include="bsp\board.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="lib\display\font6x8.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lib\display\ssd1306xled.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lib\display\font6x8.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hal\hal_gpio.c">
       <SubType>compile</SubType>
     </Compile>
@@ -138,13 +147,16 @@
     <Compile Include="hal\hal_timer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="lib\display\ssd1306xled.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tasks\led.c">
+    <Compile Include="handlers\led.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tasks\led.h">
+    <Compile Include="handlers\led.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\task_queue.c">
@@ -157,7 +169,9 @@
   <ItemGroup>
     <Folder Include="hal" />
     <Folder Include="bsp" />
-    <Folder Include="tasks" />
+    <Folder Include="handlers" />
+    <Folder Include="lib" />
+    <Folder Include="lib\display" />
     <Folder Include="utils" />
     <Folder Include="vsix\" />
   </ItemGroup>

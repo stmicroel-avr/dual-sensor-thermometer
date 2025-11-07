@@ -1,10 +1,3 @@
-/*
- * hal_timer.c
- *
- * Created: 03.11.2025 23:00:54
- *  Author: Stepan
- */ 
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "hal_timer.h"
@@ -32,7 +25,7 @@ void hal_timer_init(void) {
 }
 
 void hal_timer_start(void) {
-	TCCR0B = (1 << CS01);
+	TCCR0B = (1 << CS01) | (1 << CS00);  // = 64
 	sei();
 }
 

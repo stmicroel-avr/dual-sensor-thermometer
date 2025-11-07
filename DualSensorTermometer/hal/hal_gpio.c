@@ -1,10 +1,3 @@
-/*
- * hal_gpio.c
- *
- * Created: 03.11.2025 20:05:54
- *  Author: stmicroel-avr
- */ 
-
 #include "../bsp/board.h"
 #include "hal_gpio.h"
 

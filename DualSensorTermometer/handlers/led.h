@@ -1,10 +1,3 @@
-/*
- * led.h
- *
- * Created: 05.11.2025 21:35:07
- *  Author: Stepan
- */ 
-
 #pragma once
 
 #include <stdint.h>
