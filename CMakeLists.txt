@@ -2,66 +2,78 @@ cmake_minimum_required(VERSION 3.20)
 
 project(dual_sensor_thermometer C)
 
-# --- НАСТРОЙ ПОД СВОЙ МК ---
-# MCU и частота бери из .cproj
+# --- MCU и частота ---
 set(MCU atmega328p)
 set(F_CPU 8000000UL)
 
-# --- ТУЛЧЕЙН ИЗ ATMEL STUDIO ---
-set(AVR_TOOLCHAIN "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain")
-set(AVR_BIN "${AVR_TOOLCHAIN}/bin")
+# --- Путь к тулчейну от Atmel Studio 7 ---
+set(AVR_TOOLCHAIN_ROOT "C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain")
 
+# --- Настройка под AVR ---
 set(CMAKE_SYSTEM_NAME Generic)
+set(CMAKE_SYSTEM_PROCESSOR avr)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-set(CMAKE_C_COMPILER "${AVR_BIN}/avr-gcc.exe")
+# ГОВОРИМ CMake: никаких стандартных либ, которые он нашёл у MinGW
+set(CMAKE_C_STANDARD_LIBRARIES "")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "")
+
+set(CMAKE_C_COMPILER "${AVR_TOOLCHAIN_ROOT}/bin/avr-gcc.exe")
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# Флаги компиляции
+set(CMAKE_C_FLAGS
+        "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os -std=gnu11 -Wall -Wextra -ffunction-sections -fdata-sections"
+)
+
+# Флаги линковки
+set(CMAKE_EXE_LINKER_FLAGS
+        "-mmcu=${MCU} -Wl,--gc-sections"
+)
+
+# Будем собирать ELF-файл
 set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 
-# жёстко переопределяем, как линковать, чтобы не было --out-implib
+# Переопределяем правило линковки, чтобы не было --out-implib и прочего мусора
 set(CMAKE_C_LINK_EXECUTABLE
-        "\"${CMAKE_C_COMPILER}\" <OBJECTS> -o <TARGET> ${CMAKE_C_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}"
+        "<CMAKE_C_COMPILER> <FLAGS> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>"
 )
 
-set(AVR_OBJCOPY "${AVR_BIN}/avr-objcopy.exe")
-set(AVR_SIZE    "${AVR_BIN}/avr-size.exe")
-
-set(CMAKE_C_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os -std=gnu11 -Wall -Wextra")
-set(CMAKE_EXE_LINKER_FLAGS "-mmcu=${MCU}")
-
-# --- HEADER-пути (чтобы #include "..." находились) ---
+# --- Инклуды ---
 include_directories(
-        "${CMAKE_CURRENT_SOURCE_DIR}/src"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/bsp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/hal"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/handlers"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/display"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/temperature"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/tests"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils"
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/bsp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/hal
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/handlers
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/display
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/temperature
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
 )
 
-# --- ИСХОДНИКИ ---
-file(GLOB SRC_FILES
-        "src/main.c"
-        "src/init.c"
-        "src/bsp/*.c"
-        "src/hal/*.c"
-        "src/handlers/*.c"
-        "src/lib/display/*.c"
-        "src/lib/temperature/*.c"
-        "src/utils/*.c"
-        # "src/tests/*.c"  # тесты пока не линкуем в прошивку
+# --- Исходники: всё .c внутри src/** ---
+file(GLOB_RECURSE SRC_FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/main.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/init.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/bsp/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/hal/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/handlers/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/display/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/temperature/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.c"
 )
 
-# ВАЖНО: имя таргета без .elf, суффикс добавится сам
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
-# --- после сборки делаем HEX и показываем размер ---
+# --- Генерация HEX и вывод размера ---
+set(AVR_OBJCOPY "${AVR_TOOLCHAIN_ROOT}/bin/avr-objcopy.exe")
+set(AVR_SIZE    "${AVR_TOOLCHAIN_ROOT}/bin/avr-size.exe")
+
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${AVR_OBJCOPY} -O ihex -R .eeprom
         $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_NAME}.hex
-        COMMAND ${AVR_SIZE} -C --mcu=${MCU} $<TARGET_FILE:${PROJECT_NAME}>
+        COMMAND ${AVR_SIZE} -C --mcu=${MCU}
+        $<TARGET_FILE:${PROJECT_NAME}>
         COMMENT "Создаю HEX и показываю размер"
 )
-

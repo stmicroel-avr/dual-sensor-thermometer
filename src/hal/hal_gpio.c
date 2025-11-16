@@ -1,7 +1,5 @@
 #include "../bsp/board.h"
 
-#include "hal_gpio.h"
-
 // Initialize led pin as output
 void hal_led_init(void) {
 	LED_DDR |= (1 << LED_PIN);

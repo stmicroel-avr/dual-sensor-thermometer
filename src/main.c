@@ -11,11 +11,11 @@ int main(void) {
 
 	// Add jobs
 	task_queue_add_job(led_power_on);
-	//task_queue_add_job(show_startup_screen);
-	//task_queue_add_job(unactive_sleep_screen);
-	//task_queue_add_job(active_screen);
-	//task_queue_add_job(print_temp_a);
-	//task_queue_add_job(print_temp_b);
+	task_queue_add_job(show_startup_screen);
+	task_queue_add_job(unactive_sleep_screen);
+	task_queue_add_job(active_screen);
+	task_queue_add_job(print_temp_a);
+	task_queue_add_job(print_temp_b);
 
 	// Infinite loop
 	while (1) {
