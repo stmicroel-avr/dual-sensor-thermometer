@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "temperature.h"
+#include "../bsp/board.h"
 #include "../hal/hal_timer.h"
 #include "../lib/display/ssd1306xled.h"
 #include "../lib/temperature/ds18b20_nb.h"

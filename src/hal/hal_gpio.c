@@ -1,4 +1,5 @@
 #include "../bsp/board.h"
+
 #include "hal_gpio.h"
 
 // Initialize led pin as output

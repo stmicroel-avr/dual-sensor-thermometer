@@ -1,7 +1,6 @@
-#include <stdbool.h>
+#include "bsp/board.h"
 #include "utils/task_queue.h"
 #include "lib/display/ssd1306xled.h"
-#include "hal/hal_timer.h"
 #include "hal/hal_gpio.h"
 #include "lib/temperature/ds18b20_nb.h"
 

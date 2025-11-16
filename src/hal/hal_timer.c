@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+
 #include "hal_timer.h"
 
 static volatile uint32_t tick_counter = 0;

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <stdint.h>
 
 void hal_timer_init(void);

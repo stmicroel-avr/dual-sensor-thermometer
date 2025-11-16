@@ -1,9 +1,11 @@
-#include "../../bsp/board.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+#include "../../bsp/board.h"
+#include <util/delay.h>
+
 
 // ===================== 1-Wire low-level (PORTD only) =====================
 

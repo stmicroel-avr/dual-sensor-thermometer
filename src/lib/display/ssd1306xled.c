@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+
 #include "ssd1306xled.h"
 #include "font6x8.h"
 
@@ -61,7 +62,7 @@ void ssd1306_init(void) {
 	ssd1306_write_cmd(0xA6);
 	ssd1306_write_cmd(0x2E);
 
-	// окно
+	// пїЅпїЅпїЅпїЅ
 	ssd1306_write_cmd(0x22); ssd1306_write_cmd(0x00); ssd1306_write_cmd(0x03);
 	ssd1306_write_cmd(0x21); ssd1306_write_cmd(0x00); ssd1306_write_cmd(0x7F);
 

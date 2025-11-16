@@ -3,7 +3,7 @@
 #include <avr/io.h>
 
 // CPU CONF
-#define F_CPU 8000000UL
+ #define F_CPU 8000000UL
 
 // LED CONF
 #define LED_PORT PORTB

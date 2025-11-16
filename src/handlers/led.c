@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
+
 #include "../hal/hal_gpio.h"
 
 // Handler of power on (blink twice)
