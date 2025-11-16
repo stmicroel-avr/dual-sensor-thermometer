@@ -97,3 +97,11 @@ void ssd1306_puts6x8(uint8_t x, uint8_t page, const char *s) {
 		x += 6;
 	}
 }
+
+void ssd1306_sleep(void) {
+	ssd1306_write_cmd(0xAE);
+}
+
+void ssd1306_wakeup(void) {
+	ssd1306_write_cmd(0xAF);
+}

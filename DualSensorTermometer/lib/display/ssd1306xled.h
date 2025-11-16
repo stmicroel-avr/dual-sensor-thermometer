@@ -13,7 +13,7 @@
 #define ssd1306_fill2(p1,p2) ssd1306_fill4(p1,p2,p1,p2)
 void ssd1306_clear(void);
 
-// API
+// Low-level API
 void ssd1306_start_command(void);
 void ssd1306_start_data(void);
 void ssd1306_byte(uint8_t b);
@@ -27,3 +27,7 @@ void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4);
 // Print
 void ssd1306_putc6x8(uint8_t x, uint8_t page, char c);
 void ssd1306_puts6x8(uint8_t x, uint8_t page, const char *s);
+
+// Control
+void ssd1306_sleep(void);
+void ssd1306_wakeup(void);

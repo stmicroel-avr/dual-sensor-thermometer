@@ -4,7 +4,7 @@
 #include "../hal/hal_timer.h"
 
 // Task size
-#define QUEUE_SIZE 4
+#define QUEUE_SIZE 8
 
 // Task struct
 typedef struct {

@@ -11,7 +11,7 @@ bool led_power_on(uint32_t elapsed_ms) {
 		 toggles++;
 	 }
 	
-	 if (toggles >= 6) {
+	 if (toggles >= 18) {
 		 toggles = 0;
 		 return false;
 	 }

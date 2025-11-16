@@ -126,6 +126,21 @@
     <Compile Include="bsp\board.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="handlers\display.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="handlers\temperature.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="handlers\temperature.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="init.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="lib\display\font6x8.c">
       <SubType>compile</SubType>
     </Compile>
@@ -150,6 +165,12 @@
     <Compile Include="lib\display\ssd1306xled.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="lib\temperature\ds18b20_nb.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lib\temperature\ds18b20_nb.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -172,6 +193,7 @@
     <Folder Include="handlers" />
     <Folder Include="lib" />
     <Folder Include="lib\display" />
+    <Folder Include="lib\temperature" />
     <Folder Include="utils" />
     <Folder Include="vsix\" />
   </ItemGroup>

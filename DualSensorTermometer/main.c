@@ -5,30 +5,28 @@
  * Author : stmicroel-avr
  */ 
 
+#include "bsp/board.h"
 #include "utils/task_queue.h"
-#include "hal/hal_gpio.h"
+#include "handlers/display.h"
 #include "handlers/led.h"
-#include "lib/display/ssd1306xled.h"
-#include "lib/display/font6x8.h"
+#include "handlers/temperature.h"
+#include "init.h"
 
-// Entrypoint
+// Main function
 int main(void) {
-	// 1. Initialize display
-	ssd1306_init();
-	// 2. Clear screen
-	ssd1306_clear();
-	// 3. Show start screen
-	ssd1306_puts6x8(0, 0, "***** STMICROEL *****");
-	ssd1306_puts6x8(0, 2, "Initialization...");
-	// 4. Initialize all task queue timers
-	task_queue_init();
-	// 5. Initialize led port
-	hal_led_init();
-	// 6. Add led_power_on_job
-	task_queue_add_job(led_power_on);
+	// Initialize
+	init_all();
 	
-	while(1) {
-		// Handle queue
+	// Add jobs 
+	task_queue_add_job(led_power_on);
+	task_queue_add_job(show_startup_screen);
+	task_queue_add_job(unactive_sleep_screen);
+	task_queue_add_job(active_screen);
+	task_queue_add_job(print_temp_a);
+	task_queue_add_job(print_temp_b);
+	
+	// Infinite loop
+	while (1) {
 		task_queue_handle();
 	}
 }
