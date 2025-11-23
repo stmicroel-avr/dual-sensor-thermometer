@@ -1,18 +1,24 @@
 #include "bsp/board.h"
 #include "utils/task_queue.h"
-#include "lib/display/ssd1306xled.h"
+#include "lib/ssd1306_oled/ssd1306xled.h"
 #include "hal/hal_gpio.h"
-#include "lib/temperature/ds18b20_nb.h"
+#include "hal/hal_btn.h"
+#include "lib/ds18b20/ds18b20_nb.h"
+#include "lib/twi/twi.h"
 
 void init_all(void) {
-	// Display
+	// Иницализация аппартного i2c
+	twi_init();
+	// Инициализация дисплея
 	ssd1306_init();
 	ssd1306_clear();
-	// Task queue
+	// Инициализация очереди задач
 	task_queue_init();
-	// Led port
+	// Инициализация пина светодиода
 	hal_led_init();
-	// Temp sensors
-	ds18b20_set_resolution(DS_A, 11);
-	ds18b20_set_resolution(DS_B, 11);
+	// Инициализация пина кнопки
+	hal_btn_init();
+	// Иниуиализация датчиков
+	ds18b20_set_resolution(DS_A, DS_RESOLUTION);
+	ds18b20_set_resolution(DS_B, DS_RESOLUTION);
 }

@@ -3,5 +3,45 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-bool print_temp_a(uint32_t elapsed_ms);
-bool print_temp_b(uint32_t elapsed_ms); 
+#include "../bsp/board.h"
+
+// Номер строки для отображения температуры с датчика А
+#define PAGE_A 1u
+// Номер строки для отображения температуры с датчика В
+#define PAGE_B 2u
+
+/**
+ * Обработка этапа считывания информации с датчика
+ *
+ * @param pin_bit Пин порта датчика
+ * @param page Номер строки
+ * @param label Префикс строки
+ * @return
+ */
+void sensor_fsm_step(uint8_t pin_bit, uint8_t page, const char *label);
+
+/**
+ * Обработчик вывода температуры датчика А
+ *
+ * @param elapsed_ms Тики таймера
+ * @return
+ */
+__attribute__((unused))
+static bool print_temp_a(uint32_t elapsed_ms) {
+    (void)elapsed_ms;
+    sensor_fsm_step(DS_A, PAGE_A, "Temp1:");
+    return true;
+}
+
+/**
+ * Обработчик вывода температуры датчика B
+ *
+ * @param elapsed_ms Тики таймера
+ * @return
+ */
+__attribute__((unused))
+static bool print_temp_b(uint32_t elapsed_ms) {
+    (void)elapsed_ms;
+    sensor_fsm_step(DS_B, PAGE_B, "Temp2:");
+    return true;
+}

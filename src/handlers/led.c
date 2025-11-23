@@ -3,7 +3,12 @@
 
 #include "../hal/hal_gpio.h"
 
-// Handler of power on (blink twice)
+/**
+ * Мигнуть светодиодом на старте
+ *
+ * @param elapsed_ms Тики таймера
+ * @return
+ */
 bool led_power_on(uint32_t elapsed_ms) {
 	static uint8_t toggles = 0;
 	
@@ -12,7 +17,7 @@ bool led_power_on(uint32_t elapsed_ms) {
 		 toggles++;
 	 }
 	
-	 if (toggles >= 18) {
+	 if (toggles >= 12) {
 		 toggles = 0;
 		 return false;
 	 }

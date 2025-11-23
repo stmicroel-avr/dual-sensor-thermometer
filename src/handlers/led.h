@@ -3,5 +3,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// Handler of power on (blink twice)
+/**
+ *  Мигнуть светодиодом на старте
+ *
+ * @param elapsed_ms Тики таймера
+ * @return
+ */
 bool led_power_on(uint32_t elapsed_ms);

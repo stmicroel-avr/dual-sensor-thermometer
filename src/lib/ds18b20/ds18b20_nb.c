@@ -6,20 +6,18 @@
 #include "../../bsp/board.h"
 #include <util/delay.h>
 
-
 // ===================== 1-Wire low-level (PORTD only) =====================
 
-static inline void ow_line_low(uint8_t bit) {
-	// drive low: output 0
+static void ow_line_low(uint8_t bit) {
 	PORTD &= ~(1 << bit);
-	DDRD  |=  (1 << bit);
+	DDRD |= 1 << bit;
 }
-static inline void ow_line_release(uint8_t bit) {
-	// release line (input, external pull-up)
-	DDRD  &= ~(1 << bit);
-	// no pull-up from MCU side
+
+static void ow_line_release(uint8_t bit) {
+	DDRD &= ~(1 << bit);
 }
-static inline uint8_t ow_sample(uint8_t bit) {
+
+static uint8_t ow_sample(uint8_t bit) {
 	return (PIND & (1 << bit)) ? 1 : 0;
 }
 
@@ -49,7 +47,7 @@ static void ow_write_bit(uint8_t bit, uint8_t v) {
 		_delay_us(6);
 		ow_line_release(bit);
 		_delay_us(64);
-		} else {
+	} else {
 		// write '0'
 		ow_line_low(bit);
 		_delay_us(60);
@@ -86,8 +84,11 @@ static uint8_t ow_read_byte(uint8_t bit) {
 	uint8_t r = 0;
 	for (uint8_t i = 0; i < 8; i++) {
 		r >>= 1;
-		if (ow_read_bit(bit)) r |= 0x80;
+		if (ow_read_bit(bit)) {
+			r |= 0x80;
+		}
 	}
+
 	return r;
 }
 
@@ -100,11 +101,19 @@ static uint8_t ow_read_byte(uint8_t bit) {
 #define DS_COPY_SCRATCH  0x48
 
 void ds18b20_set_resolution(uint8_t bit, uint8_t res_bits) {
-	if (res_bits < 9)  res_bits = 9;
-	if (res_bits > 12) res_bits = 12;
+	if (res_bits < 9) {
+		res_bits = 9;
+	}
+
+	if (res_bits > 12) {
+		res_bits = 12;
+	}
+
 	uint8_t cfg = ((res_bits - 9) << 5) | 0x1F;
 
-	if (!ow_reset(bit)) return;
+	if (!ow_reset(bit)) {
+		return;
+	}
 
 	ow_write_byte(bit, DS_SKIP_ROM);
 	ow_write_byte(bit, DS_WRITE_SCRATCH);
@@ -114,9 +123,13 @@ void ds18b20_set_resolution(uint8_t bit, uint8_t res_bits) {
 }
 
 bool ds18b20_start(uint8_t bit) {
-	if (!ow_reset(bit)) return false;
+	if (!ow_reset(bit)) {
+		return false;
+	}
+
 	ow_write_byte(bit, DS_SKIP_ROM);
 	ow_write_byte(bit, DS_CONVERT_T);
+
 	return true;
 }
 
@@ -125,16 +138,23 @@ bool ds18b20_ready(uint8_t bit) {
 }
 
 bool ds18b20_read_temp(uint8_t bit, int16_t *t) {
-	if (!ow_reset(bit)) return false;
+	if (!ow_reset(bit)) {
+		return false;
+	}
 
 	ow_write_byte(bit, DS_SKIP_ROM);
 	ow_write_byte(bit, DS_READ_SCRATCH);
 	uint8_t tempL = ow_read_byte(bit);
 	uint8_t tempH = ow_read_byte(bit);
 	
-	for (uint8_t i = 0; i < 7; i++) (void)ow_read_byte(bit);
+	for (uint8_t i = 0; i < 7; i++) {
+		(void)ow_read_byte(bit);
+	}
 	
 	int16_t raw = (int16_t)((tempH << 8) | tempL);
-	if (t) *t = raw;
+	if (t) {
+		*t = raw;
+	}
+
 	return true;
 }

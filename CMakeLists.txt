@@ -47,8 +47,10 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/src/hal
         ${CMAKE_CURRENT_SOURCE_DIR}/src/handlers
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/display
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/temperature
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/twi
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds3232_rtc
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ssd1306_oled
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds18b20
         ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
 )
 
@@ -59,8 +61,10 @@ file(GLOB_RECURSE SRC_FILES
         "${CMAKE_CURRENT_SOURCE_DIR}/src/bsp/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/hal/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/handlers/*.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/display/*.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/temperature/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/twi/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds3232_rtc/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ssd1306_oled/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds18b20/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.c"
 )
 
@@ -71,9 +75,7 @@ set(AVR_OBJCOPY "${AVR_TOOLCHAIN_ROOT}/bin/avr-objcopy.exe")
 set(AVR_SIZE    "${AVR_TOOLCHAIN_ROOT}/bin/avr-size.exe")
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${AVR_OBJCOPY} -O ihex -R .eeprom
-        $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_NAME}.hex
-        COMMAND ${AVR_SIZE} -C --mcu=${MCU}
-        $<TARGET_FILE:${PROJECT_NAME}>
+        COMMAND ${AVR_OBJCOPY} -O ihex -R .eeprom $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_NAME}.hex
+        COMMAND ${AVR_SIZE} -C --mcu=${MCU} $<TARGET_FILE:${PROJECT_NAME}>
         COMMENT "Создаю HEX и показываю размер"
 )
