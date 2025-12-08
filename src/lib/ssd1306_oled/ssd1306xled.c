@@ -69,15 +69,25 @@ void ssd1306_setpos(uint8_t x, uint8_t page) {
 }
 
 /**
- * Отправить команды и данные для очистки дисплея
+ * Очистка дисплея с конкретной строки
+ * @param page Номер строки
  */
-void ssd1306_clear(void) {
-	for (uint8_t page=0; page<4; page++) {
+void ssd1306_clear_from_page(uint8_t page) {
+	for (;page<4; page++) {
 		ssd1306_setpos(0, page);
-		for (uint8_t x=0; x<128; x++)
-		ssd1306_write_data(0x00);
+		for (uint8_t x=0; x<128; x++) {
+			ssd1306_write_data(0x00);
+		}
 	}
 }
+
+/**
+ * Полная очистка дисплея
+ */
+void ssd1306_clear(void) {
+	ssd1306_clear_from_page(0);
+}
+
 
 
 /**

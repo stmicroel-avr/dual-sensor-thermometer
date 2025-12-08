@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <avr/eeprom.h>
 
 #include "../lib/ds3232_rtc/ds3232_rtc.h"
 #include "../lib/ssd1306_oled/ssd1306xled.h"
@@ -7,15 +8,45 @@
 #define X_POS 0
 #define DISPLAY_PAGE 3
 
+uint8_t EEMEM rtc_initialized = 0;
+
+// Время инициализации
+const rtc_time_t start_at = {
+    .seconds = 0,
+    .minutes = 00,
+    .hours   = 22,
+    .day     = 2,
+    .date    = 8,
+    .month   = 12,
+    .year    = 25
+};
+
+// Текущее время
 static rtc_time_t now = {
     .seconds = 0,
     .minutes = 0,
     .hours   = 0,
-    .day     = 7,
-    .date    = 23,
-    .month   = 11,
-    .year    = 25
+    .day     = 0,
+    .date    = 0,
+    .month   = 0,
+    .year    = 0
 };
+
+/**
+ * Инициализация RTC
+ *
+ * @return
+ */
+bool init_rtc_time(uint32_t elapsed_ms) {
+    (void)elapsed_ms;
+    if (eeprom_read_byte(&rtc_initialized)) {
+        return false;
+    }
+
+    rtc_set_time(&start_at);
+    eeprom_update_byte(&rtc_initialized, 1);
+    return false;
+}
 
 /**
  * Обновить время на дисплее
@@ -36,8 +67,17 @@ bool display_rtc_time(uint32_t elapsed_ms) {
     }
 
     rtc_get_time(&now);
-    char line[15];
-    sprintf(line, "Time: %d:%d:%d", now.hours, now.minutes, now.seconds);
+    char line[21];
+    sprintf(
+        line,
+        "20%d-%02d-%02d %02d:%02d:%02d ",
+        now.year,
+        now.month,
+        now.date,
+        now.hours,
+        now.minutes,
+        now.seconds
+    );
     ssd1306_puts6x8(X_POS, DISPLAY_PAGE, line);
     cycle_time_ms = elapsed_ms;
 

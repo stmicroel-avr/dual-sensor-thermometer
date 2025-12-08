@@ -51,6 +51,12 @@ void ssd1306_sleep(void);
 void ssd1306_wakeup(void);
 
 /**
- * Отправить команды и данные для очистки дисплея
+ * Очистка дисплея с конкретной строки
+ * @param page Номер строки
+ */
+void ssd1306_clear_from_page(uint8_t page);
+
+/**
+ * Полная очистка дисплея
  */
 void ssd1306_clear(void);

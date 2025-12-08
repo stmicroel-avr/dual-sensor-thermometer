@@ -10,7 +10,7 @@ static volatile bool button_pressed = false;
 /**
  * Установка пина как вывода
  */
-ISR(INT0_vect) {
+ISR(INT1_vect) {
     button_pressed = true;
 }
 
@@ -23,9 +23,9 @@ void hal_btn_init() {
     BTN_PORT |= (1 << BTN_PIN);
 
     // Разрешаем прерывание
-    EICRA |=  (1 << ISC01);
-    EICRA &= ~(1 << ISC00);
-    EIMSK |= (1 << INT0);
+    EICRA |=  (1 << ISC11);
+    EICRA &= ~(1 << ISC10);
+    EIMSK |= (1 << INT1);
     sei();
 }
 

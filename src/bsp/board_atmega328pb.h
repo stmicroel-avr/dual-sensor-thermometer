@@ -6,19 +6,19 @@
  #define F_CPU 8000000UL
 
 // LED CONF
-#define LED_PORT PORTB
-#define LED_DDR DDRB
-#define LED_PIN PB1
+#define LED_PORT PORTC
+#define LED_DDR DDRC
+#define LED_PIN PC2
 
 // DS18B20
-#define DS_A  PD0
-#define DS_B  PD1
+#define DS_A  PD5
+#define DS_B  PD7
 #define DS_RESOLUTION 12
 
 // BUTTON CONF
 #define BTN_PORT PORTD
 #define BTN_DDR  DDRD
-#define BTN_PIN  PD2
+#define BTN_PIN  PD3
 
 
 // APP CONF

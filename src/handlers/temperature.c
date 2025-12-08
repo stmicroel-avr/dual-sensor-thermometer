@@ -25,16 +25,20 @@ typedef enum { ST_START = 0, ST_WAIT, ST_READ, ST_GAP } ds_state_t;
 static void render_temp_line(uint8_t page, const char *label, int16_t t16, bool indicator_on) {
 	int is_neg = t16 < 0;
 	int16_t m_value = is_neg ? -t16 : t16;
-	char *direction = is_neg ? "-" : "";
+	const char *direction = is_neg ? "-" : "";
+
+	int16_t t_int  = m_value / 16;               // целая
+	int16_t t_frac = (m_value % 16) * 100 / 16;  // сотые
 
 	char tmp[LINE_WIDTH + 1];
 	char line[LINE_WIDTH + 1];
 
-	snprintf(tmp, sizeof(tmp), "%s %s%d.%d'C", label, direction, m_value / 16, (m_value % 16) * 10 / 16);
+	snprintf(tmp, sizeof(tmp), "%s %s%d.%02d'C", label, direction, t_int, t_frac);
 	snprintf(line, sizeof(line), "%-20s%c", tmp, indicator_on ? '*' : ' ');
 
 	ssd1306_puts6x8(0, page, line);
 }
+
 
 /**
  * Обработка этапа считывания информации с датчика
