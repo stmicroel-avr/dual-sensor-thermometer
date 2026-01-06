@@ -14,12 +14,12 @@
 bool show_startup_screen(uint32_t elapsed_ms) {
     (void)elapsed_ms;
 
-    ssd1306_puts6x8(0, 0, "SmartTherm v1.0");
+    ssd1306_puts6x8(0, 0, "SmartTherm v1.2");
     ssd1306_puts6x8(0, 1, "Init...");
     ssd1306_puts6x8(0, 2, "Email: stap51@ya.com");
     ssd1306_puts6x8(0, 3, "Powered by STmicroel");
 
-    _delay_ms(2000);
+    _delay_ms(3000);
 
     ssd1306_clear();
 
