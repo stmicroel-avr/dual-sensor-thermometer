@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <stdint.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 
 #include "../lib/ssd1306_oled/ssd1306xled.h"
 #include "../bsp/board.h"
@@ -19,9 +19,9 @@ bool show_startup_screen(uint32_t elapsed_ms) {
     ssd1306_puts6x8(0, 2, "Email: stap51@ya.com");
     ssd1306_puts6x8(0, 3, "Powered by STmicroel");
 
-    _delay_ms(1000);
+    _delay_ms(2000);
 
-    ssd1306_clear_from_page(1);
+    ssd1306_clear();
 
     return false;
 }

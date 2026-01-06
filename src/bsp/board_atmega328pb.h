@@ -13,7 +13,7 @@
 // DS18B20
 #define DS_A  PD5
 #define DS_B  PD7
-#define DS_RESOLUTION 12
+#define DS_RESOLUTION 11
 
 // BUTTON CONF
 #define BTN_PORT PORTD
@@ -22,4 +22,4 @@
 
 
 // APP CONF
-#define DISPLAY_ACTIVE_MS_TIME 10000
+#define DISPLAY_ACTIVE_MS_TIME 60000

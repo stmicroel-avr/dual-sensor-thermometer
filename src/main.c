@@ -5,6 +5,7 @@
 #include "handlers/temperature.h"
 #include "handlers/button.h"
 #include "handlers/rtc.h"
+#include "handlers/pwr.h"
 
 /**
  * Точка входа
@@ -24,6 +25,7 @@ int main(void) {
 	//task_queue_add_job(delayed_unactive_sleep_screen);
 	task_queue_add_job(print_temp_a);
 	task_queue_add_job(print_temp_b);
+	task_queue_add_job(display_pwr);
 	task_queue_add_job(display_rtc_time);
 
 	// Loop

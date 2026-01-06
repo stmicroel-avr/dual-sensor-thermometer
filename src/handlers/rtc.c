@@ -8,15 +8,13 @@
 #define X_POS 0
 #define DISPLAY_PAGE 3
 
-uint8_t EEMEM rtc_initialized = 0;
-
 // Время инициализации
 const rtc_time_t start_at = {
     .seconds = 0,
-    .minutes = 00,
-    .hours   = 22,
-    .day     = 2,
-    .date    = 8,
+    .minutes = 40,
+    .hours   = 21,
+    .day     = 5,
+    .date    = 11,
     .month   = 12,
     .year    = 25
 };
@@ -39,12 +37,11 @@ static rtc_time_t now = {
  */
 bool init_rtc_time(uint32_t elapsed_ms) {
     (void)elapsed_ms;
-    if (eeprom_read_byte(&rtc_initialized)) {
-        return false;
+    rtc_get_time(&now);
+    if (!now.year) {
+        rtc_set_time(&start_at);
     }
 
-    rtc_set_time(&start_at);
-    eeprom_update_byte(&rtc_initialized, 1);
     return false;
 }
 

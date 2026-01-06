@@ -8,7 +8,7 @@
 #include "../lib/ds18b20/ds18b20_nb.h"
 
 // Целевой период обновления температуры
-#define TEMP_PERIOD_MS 1000u
+#define TEMP_PERIOD_MS 500u
 // Длина строки
 #define LINE_WIDTH 21u
 // Структура для хранения стейта считывания данных с датчика
