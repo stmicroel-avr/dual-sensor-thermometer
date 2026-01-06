@@ -29,7 +29,7 @@ void sensor_fsm_step(uint8_t pin_bit, uint8_t page, const char *label);
 __attribute__((unused))
 static bool print_temp_a(uint32_t elapsed_ms) {
     (void)elapsed_ms;
-    sensor_fsm_step(DS_A, PAGE_A, "Temp1:");
+    sensor_fsm_step(DS_A, PAGE_A, "On board:");
     return true;
 }
 
@@ -42,6 +42,6 @@ static bool print_temp_a(uint32_t elapsed_ms) {
 __attribute__((unused))
 static bool print_temp_b(uint32_t elapsed_ms) {
     (void)elapsed_ms;
-    sensor_fsm_step(DS_B, PAGE_B, "Temp2:");
+    sensor_fsm_step(DS_B, PAGE_B, "External:");
     return true;
 }

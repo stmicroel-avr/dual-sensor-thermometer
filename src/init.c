@@ -14,11 +14,11 @@ void init_all(void) {
 	ssd1306_clear();
 	// Инициализация очереди задач
 	task_queue_init();
-	// Инициализация пина светодиода
+	// Инициализация индикации
 	hal_led_init();
 	// Инициализация пина кнопки
 	hal_btn_init();
-	// Иниуиализация датчиков
+	// Инициализация датчиков
 	ds18b20_set_resolution(DS_A, DS_RESOLUTION);
 	ds18b20_set_resolution(DS_B, DS_RESOLUTION);
 }

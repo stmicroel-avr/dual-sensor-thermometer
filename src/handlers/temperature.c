@@ -39,9 +39,23 @@ static void render_temp_line(uint8_t page, const char *label, int16_t t16, bool 
 	ssd1306_puts6x8(0, page, line);
 }
 
+/**
+ * Рендер строки ошибки чтения с датчика
+ *
+ * @param page Строка
+ * @param label Префикс(лейбл)
+ * @param err_text Текст ошибки
+ */
+static void render_err_line(uint8_t page, const char *label, const char *err_text) {
+	char tmp[LINE_WIDTH + 1];
+	sprintf(tmp, "%s %s", label, err_text);
+	ssd1306_puts6x8(0, page, tmp);
+}
+
 
 /**
  * Обработка этапа считывания информации с датчика
+ * Исполользовал стейт машину
  *
  * @param pin_bit Пин порта датчика
  * @param page Номер строки
@@ -75,7 +89,7 @@ void sensor_fsm_step(uint8_t pin_bit, uint8_t page, const char *label) {
 				*t0 = hal_ticks();
 				*st = ST_WAIT;
 			} else {
-				ssd1306_puts6x8(0, page, "Sensor ERR           ");
+				render_err_line(page, label, "Sensor ERR");
 				*t0 = hal_ticks();
 				*st = ST_GAP;
 			}
@@ -91,7 +105,7 @@ void sensor_fsm_step(uint8_t pin_bit, uint8_t page, const char *label) {
 				*indicator = !(*indicator);
 				render_temp_line(page, label, t16, *indicator);
 			} else {
-				ssd1306_puts6x8(0, page, "Read ERR             ");
+				render_err_line(page, label, "Read ERR");
 			}
 			*t0 = hal_ticks();
 			*st = ST_GAP;
