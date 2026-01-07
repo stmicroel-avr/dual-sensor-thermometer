@@ -12,11 +12,11 @@
 const rtc_time_t start_at = {
     .seconds = 0,
     .minutes = 40,
-    .hours   = 21,
+    .hours   = 13,
     .day     = 5,
-    .date    = 11,
-    .month   = 12,
-    .year    = 25
+    .date    = 7,
+    .month   = 1,
+    .year    = 26
 };
 
 // Текущее время
