@@ -3,14 +3,12 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+
 #include "../utils/pwr.h"
-
-#include <time.h>
-
 #include "../lib/ssd1306_oled/ssd1306xled.h"
 
 /**
- * Отразить время
+ * Отразить напряжение питания
  *
  * @param elapsed_ms Тики таймера
  */

@@ -7,4 +7,4 @@
  *
  * @return uint16_t
  */
-uint16_t readVcc();
+uint16_t readVcc(void);

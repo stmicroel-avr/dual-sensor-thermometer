@@ -35,14 +35,11 @@ static rtc_time_t now = {
  *
  * @return
  */
-bool init_rtc_time(uint32_t elapsed_ms) {
-    (void)elapsed_ms;
+void init_rtc_time() {
     rtc_get_time(&now);
     if (!now.year) {
         rtc_set_time(&start_at);
     }
-
-    return false;
 }
 
 /**

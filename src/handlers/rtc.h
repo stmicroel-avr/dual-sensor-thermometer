@@ -14,4 +14,4 @@ bool display_rtc_time(uint32_t elapsed_ms);
  *
  * @return
  */
-bool init_rtc_time(uint32_t elapsed_ms);
+void init_rtc_time(void);

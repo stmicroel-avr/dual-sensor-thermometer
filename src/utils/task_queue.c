@@ -57,11 +57,8 @@ void task_queue_handle(void) {
 			continue;
 		}
 		
-		uint32_t elapsed_ms = now - queue[i].start_ms;
-		bool retry = queue[i].handler(elapsed_ms);
-		
-		// Unload task when handler return false
-		if (!retry) {
+		// Execute task and unload when handler return false
+		if (!queue[i].handler(now - queue[i].start_ms)) {
 			queue[i].active = false;
 			queue[i].start_ms = 0;
 			queue[i].handler = NULL;

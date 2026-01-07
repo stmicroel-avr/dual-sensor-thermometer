@@ -8,12 +8,9 @@
 /**
  * Отобразить стартовый экран
  *
- * @param elapsed_ms Кол-во милисекунд с момент старта таймера
  * @return bool
  */
-bool show_startup_screen(uint32_t elapsed_ms) {
-    (void)elapsed_ms;
-
+void show_startup_screen(void) {
     ssd1306_puts6x8(0, 0, "SmartTherm v1.2");
     ssd1306_puts6x8(0, 1, "Init...");
     ssd1306_puts6x8(0, 2, "Email: stap51@ya.com");
@@ -22,8 +19,6 @@ bool show_startup_screen(uint32_t elapsed_ms) {
     _delay_ms(3000);
 
     ssd1306_clear();
-
-    return false;
 }
 
 /**
