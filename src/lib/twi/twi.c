@@ -5,7 +5,7 @@
  */
 void twi_init(void) {
     TWSR = 0;
-    TWBR = 2;
+    TWBR = 32;
     TWCR = 1<<TWEN;
 }
 
@@ -27,6 +27,7 @@ void twi_start(uint8_t addr) {
  */
 void twi_stop(void) {
     TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWSTO);
+    while (TWCR & (1<<TWSTO));
 }
 
 /**

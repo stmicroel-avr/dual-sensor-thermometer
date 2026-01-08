@@ -51,7 +51,9 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds3232_rtc
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ssd1306_oled
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds18b20
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/24c64
         ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/shared
 )
 
 # --- Исходники: всё .c внутри src/** ---
@@ -65,7 +67,9 @@ file(GLOB_RECURSE SRC_FILES
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds3232_rtc/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ssd1306_oled/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds18b20/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/24c64/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/shared/*.c"
 )
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})

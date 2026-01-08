@@ -6,6 +6,7 @@
 #include "../hal/hal_timer.h"
 #include "../lib/ssd1306_oled/ssd1306xled.h"
 #include "../lib/ds18b20/ds18b20_nb.h"
+#include "../shared/temperature_frame_state.h"
 
 // Целевой период обновления температуры
 #define TEMP_PERIOD_MS 500u
@@ -104,6 +105,7 @@ void sensor_fsm_step(uint8_t pin_bit, uint8_t page, const char *label) {
 			if (ds18b20_read_temp(pin_bit, &t16)) {
 				*indicator = !(*indicator);
 				render_temp_line(page, label, t16, *indicator);
+				set_frame_temperature(pin_bit, t16);
 			} else {
 				render_err_line(page, label, "Read ERR");
 			}

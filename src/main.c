@@ -5,6 +5,7 @@
 #include "tasks/temperature.h"
 #include "tasks/rtc.h"
 #include "tasks/pwr.h"
+#include "tasks/temperature_log.h"
 
 /**
  * Добавить все циклические задачи в очередь
@@ -22,6 +23,9 @@ void add_loop_tasks(void) {
 
 	// Отображение RTC
 	task_queue_add_job(display_rtc_time);
+
+	// Обработчик записи лога
+	task_queue_add_job(check_log_frame_set);
 
 	// Отключенные временно таски
 	// task_queue_add_job(check_btn_press);

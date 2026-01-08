@@ -119,5 +119,37 @@ bool frame_ready_for_write(void) {
     return t_state_frame.has_time
     && t_state_frame.has_temp1
     && t_state_frame.has_temp2
-    && (!t_state_frame.last_touch_time || t_state_frame.last_touch_time != t_state_frame.minutes_since);
+    && (t_state_frame.last_touch_time == 0 || t_state_frame.last_touch_time != t_state_frame.minutes_since);
+}
+
+/**
+ * Сериализовать кадр в буффер байт
+ *
+ * @param buff Байтовый буффер
+ * @return
+ */
+bool serialize_state_to_data_buff(uint8_t *buff) {
+    if (!frame_ready_for_write()) {
+        return false;
+    }
+
+    buff[0] = (uint8_t)((t_state_frame.minutes_since >> 0) & 0xFF);
+    buff[1] = (uint8_t)((t_state_frame.minutes_since >> 8) & 0xFF);
+    buff[2] = (uint8_t)((t_state_frame.minutes_since >> 16) & 0xFF);
+    buff[3] = (uint8_t)(((uint16_t)t_state_frame.temp1_x100 >> 0) & 0xFF);
+    buff[4] = (uint8_t)(((uint16_t)t_state_frame.temp1_x100 >> 8) & 0xFF);
+    buff[5] = (uint8_t)(((uint16_t)t_state_frame.temp2_x100 >> 0) & 0xFF);
+    buff[6] = (uint8_t)(((uint16_t)t_state_frame.temp2_x100 >> 8) & 0xFF);
+
+    return true;
+}
+
+/**
+ * Сбросить фрейм
+ */
+void reset_state_frame(void) {
+    t_state_frame.last_touch_time = t_state_frame.minutes_since;
+    t_state_frame.has_time = false;
+    t_state_frame.has_temp1 = false;
+    t_state_frame.has_temp2 = false;
 }

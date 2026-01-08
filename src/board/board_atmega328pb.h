@@ -15,6 +15,11 @@
 #define DS_B  PD7
 #define DS_RESOLUTION 12
 
+// 24CXX
+#define EXT_EEPROM_ADDR 0x50
+#define EXT_EEPROM_SIZE 8192
+#define FRAME_VALID_MARKER 0xAA
+
 // BUTTON CONF
 #define BTN_PORT PORTD
 #define BTN_DDR  DDRD

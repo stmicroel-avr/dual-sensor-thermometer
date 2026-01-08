@@ -3,6 +3,7 @@
 
 #include "../lib/ds3232_rtc/ds3232_rtc.h"
 #include "../lib/ssd1306_oled/ssd1306xled.h"
+#include "../shared/temperature_frame_state.h"
 
 #define X_POS 0
 #define DISPLAY_PAGE 3
@@ -72,6 +73,9 @@ bool display_rtc_time(uint32_t elapsed_ms) {
         now.seconds
     );
     ssd1306_puts6x8(X_POS, DISPLAY_PAGE, line);
+
+    set_frame_time(now.year, now.month, now.date, now.hours, now.minutes);
+
     cycle_time_ms = elapsed_ms;
 
     return true;
