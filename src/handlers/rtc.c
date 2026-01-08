@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <avr/eeprom.h>
 
 #include "../lib/ds3232_rtc/ds3232_rtc.h"
 #include "../lib/ssd1306_oled/ssd1306xled.h"
