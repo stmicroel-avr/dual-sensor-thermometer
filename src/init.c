@@ -1,4 +1,4 @@
-#include "bsp/board.h"
+#include "board/board.h"
 #include "lib/ssd1306_oled/ssd1306xled.h"
 #include "hal/hal_gpio.h"
 #include "hal/hal_btn.h"

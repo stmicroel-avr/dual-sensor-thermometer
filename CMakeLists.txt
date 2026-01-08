@@ -43,9 +43,9 @@ set(CMAKE_C_LINK_EXECUTABLE
 # --- Инклуды ---
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/src
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/bsp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/board
         ${CMAKE_CURRENT_SOURCE_DIR}/src/hal
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/handlers
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/tasks
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/twi
         ${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds3232_rtc
@@ -58,9 +58,9 @@ include_directories(
 file(GLOB_RECURSE SRC_FILES
         "${CMAKE_CURRENT_SOURCE_DIR}/src/main.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/bsp/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/board/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/hal/*.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/handlers/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/tasks/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/twi/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ds3232_rtc/*.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/ssd1306_oled/*.c"

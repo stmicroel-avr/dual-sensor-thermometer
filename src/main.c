@@ -1,10 +1,10 @@
 #include "init.h"
 #include "utils/task_queue.h"
-#include "handlers/display.h"
-#include "handlers/led.h"
-#include "handlers/temperature.h"
-#include "handlers/rtc.h"
-#include "handlers/pwr.h"
+#include "tasks/display.h"
+#include "tasks/led.h"
+#include "tasks/temperature.h"
+#include "tasks/rtc.h"
+#include "tasks/pwr.h"
 
 /**
  * Добавить все циклические задачи в очередь

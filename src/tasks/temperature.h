@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "../bsp/board.h"
+#include "../board/board.h"
 
 // Номер строки для отображения температуры с датчика А
 #define PAGE_A 0u

@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <avr/interrupt.h>
 
-#include "../bsp/board.h"
+#include "../board/board.h"
 
 // Была ли нажата кнопка
 static volatile bool button_pressed = false;

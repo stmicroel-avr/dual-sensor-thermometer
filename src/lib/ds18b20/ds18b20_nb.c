@@ -3,7 +3,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "../../bsp/board.h"
+#include "../../board/board.h"
 #include <util/delay.h>
 
 // ===================== 1-Wire low-level (PORTD only) =====================

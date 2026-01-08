@@ -100,7 +100,7 @@ void set_frame_time(uint8_t year, uint8_t month, uint8_t date, uint8_t hour, uin
  * @param sensor_pin Номер пина датчика
  * @param temp_value Значение температуры в виде двухбайтного числа
  */
-void set_frame_temperature(uint8_t sensor_pin, uint16_t temp_value) {
+void set_frame_temperature(uint8_t sensor_pin, int16_t temp_value) {
     if (sensor_pin == DS_A) {
         t_state_frame.has_temp1 = true;
         t_state_frame.temp1_x100 = temp_value;

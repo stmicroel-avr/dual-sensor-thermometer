@@ -1,4 +1,4 @@
-#include "../bsp/board.h"
+#include "../board/board.h"
 
 /**
  *	Установка пина как вывода

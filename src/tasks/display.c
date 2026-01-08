@@ -3,7 +3,7 @@
 #include <util/delay.h>
 
 #include "../lib/ssd1306_oled/ssd1306xled.h"
-#include "../bsp/board.h"
+#include "../board/board.h"
 
 /**
  * Отобразить стартовый экран
