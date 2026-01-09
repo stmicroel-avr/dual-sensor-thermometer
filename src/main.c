@@ -6,6 +6,7 @@
 #include "tasks/rtc.h"
 #include "tasks/pwr.h"
 #include "tasks/temperature_log.h"
+#include "tasks/uart.h"
 
 /**
  * Добавить все циклические задачи в очередь
@@ -26,6 +27,9 @@ void add_loop_tasks(void) {
 
 	// Обработчик записи лога
 	task_queue_add_job(check_log_frame_set);
+
+	// Тестовая отправка UART
+	task_queue_add_job(uart_touch_temp);
 
 	// Отключенные временно таски
 	// task_queue_add_job(check_btn_press);

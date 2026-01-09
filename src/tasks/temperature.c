@@ -7,6 +7,7 @@
 #include "../lib/ssd1306_oled/ssd1306xled.h"
 #include "../lib/ds18b20/ds18b20_nb.h"
 #include "../shared/temperature_frame_state.h"
+#include "../shared/temperature_string_state.h"
 
 // Целевой период обновления температуры
 #define TEMP_PERIOD_MS 500u
@@ -22,8 +23,9 @@ typedef enum { ST_START = 0, ST_WAIT, ST_READ, ST_GAP } ds_state_t;
  * @param label Префикс(Статическая часть)
  * @param t16 Значение температуры в int16
  * @param indicator_on Отображать индикатор в конце строки (*)
+ * @param sensor_pin Датчик
  */
-static void render_temp_line(uint8_t page, const char *label, int16_t t16, bool indicator_on) {
+static void render_temp_line(uint8_t page, const char *label, int16_t t16, bool indicator_on, uint8_t sensor_pin) {
 	int is_neg = t16 < 0;
 	int16_t m_value = is_neg ? -t16 : t16;
 	const char *direction = is_neg ? "-" : "";
@@ -33,11 +35,14 @@ static void render_temp_line(uint8_t page, const char *label, int16_t t16, bool 
 
 	char tmp[LINE_WIDTH + 1];
 	char line[LINE_WIDTH + 1];
+	char log_line[8];
 
+	snprintf(log_line, sizeof(log_line), "%s%d.%02d", direction, t_int, t_frac);
 	snprintf(tmp, sizeof(tmp), "%s %s%d.%02d'C", label, direction, t_int, t_frac);
 	snprintf(line, sizeof(line), "%-20s%c", tmp, indicator_on ? '*' : ' ');
 
 	ssd1306_puts6x8(0, page, line);
+	set_string_temperature(sensor_pin, log_line);
 }
 
 /**
@@ -104,7 +109,7 @@ void sensor_fsm_step(uint8_t pin_bit, uint8_t page, const char *label) {
 			int16_t t16;
 			if (ds18b20_read_temp(pin_bit, &t16)) {
 				*indicator = !(*indicator);
-				render_temp_line(page, label, t16, *indicator);
+				render_temp_line(page, label, t16, *indicator, pin_bit);
 				set_frame_temperature(pin_bit, t16);
 			} else {
 				render_err_line(page, label, "Read ERR");

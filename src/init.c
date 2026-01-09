@@ -4,6 +4,7 @@
 #include "hal/hal_btn.h"
 #include "lib/ds18b20/ds18b20_nb.h"
 #include "lib/twi/twi.h"
+#include "lib/uart/uart.h"
 
 /**
  * Инициализация всей периферии
@@ -21,4 +22,6 @@ void init_all(void) {
 	// Инициализация датчиков температуры
 	ds18b20_set_resolution(DS_A, DS_RESOLUTION);
 	ds18b20_set_resolution(DS_B, DS_RESOLUTION);
+	// Инициализация UART
+	uart_init();
 }
