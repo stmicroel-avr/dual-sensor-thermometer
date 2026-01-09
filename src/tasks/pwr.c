@@ -25,7 +25,7 @@ bool display_pwr(uint32_t elapsed_ms) {
     uint16_t mv = readVcc();
     snprintf(line, sizeof(line), "VCC %u.%02uV", mv / 1000, (mv % 1000) / 10);
 
-    ssd1306_puts6x8(0, 2, line);
+    ssd1306_puts6x8(0, 3, line);
 
     now = elapsed_ms;
 

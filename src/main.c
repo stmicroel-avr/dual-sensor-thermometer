@@ -18,11 +18,11 @@ void add_loop_tasks(void) {
 	task_queue_add_job(print_temp_a);
 	task_queue_add_job(print_temp_b);
 
-	// Отображение напряжения питания
-	task_queue_add_job(display_pwr);
-
 	// Отображение RTC
 	task_queue_add_job(display_rtc_time);
+
+	// Отображение напряжения питания
+	task_queue_add_job(display_pwr);
 
 	// Обработчик записи лога
 	task_queue_add_job(check_log_frame_set);

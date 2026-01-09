@@ -1,10 +1,12 @@
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "../board/board.h"
 #include "temperature_log.h"
-#include "../shared/temperature_frame_state.h"
 #include "lib/24c64/24cxx_eeprom.h"
+#include "lib/ssd1306_oled/ssd1306xled.h"
+#include "../shared/temperature_frame_state.h"
 
 /**
  * Проверка наличия данных в буффере на запись
@@ -31,9 +33,14 @@ bool check_log_frame_set(uint32_t elapsed_ms) {
 
     uint8_t buff[8];
     serialize_state_to_data_buff(buff);
-    write_data_to_ring_buffer(buff, 8);
+    uint16_t next_mem_addr = write_data_to_ring_buffer(buff, 8);
 
     reset_state_frame();
+
+    // отобразим сл адрес на экране
+    char display_buff[11];
+    sprintf(display_buff, "EADDR: %u", next_mem_addr);
+    ssd1306_puts6x8(10*6, 3, display_buff);
 
     return true;
 }

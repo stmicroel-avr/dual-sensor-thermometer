@@ -6,7 +6,7 @@
 #include "../shared/temperature_frame_state.h"
 
 #define X_POS 0
-#define DISPLAY_PAGE 3
+#define DISPLAY_PAGE 2
 
 // Время инициализации
 const rtc_time_t start_at = {
