@@ -28,8 +28,11 @@ void add_loop_tasks(void) {
 	// Обработчик записи лога
 	task_queue_add_job(check_log_frame_set);
 
-	// Тестовая отправка UART
+	// Отправка температуры в RT в UART(каждые 10 сек)
 	task_queue_add_job(uart_touch_temp);
+
+	// Чтение команд из UART
+	task_queue_add_job(uart_read_cmd);
 
 	// Отключенные временно таски
 	// task_queue_add_job(check_btn_press);
